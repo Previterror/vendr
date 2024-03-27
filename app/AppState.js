@@ -5,6 +5,7 @@ import { createObservableProxy } from './utils/ObservableProxy.js'
 class ObservableAppState extends EventEmitter {
 
   money = 0
+  purchased = []
 
   snacks = [
     new Snack({

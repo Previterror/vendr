@@ -7,6 +7,7 @@ export class VendrController {
         // console.log('VendrController Loaded');
         AppState.on('money', this.drawMoney)
         AppState.on('money', this.toggleButtons)
+        AppState.on('purchased', this.drawPurchased)
         this.drawSnacks()
     }
 
@@ -32,6 +33,7 @@ export class VendrController {
     buySnack(snackName) {
         // console.log('attempting to buy');
         vendrService.buySnack(snackName)
+        this.recordPurchases(snackName)
     }
 
     toggleButtons() {
@@ -44,5 +46,17 @@ export class VendrController {
                 snackButtonElm.classList.remove('d-none')
             }
         })
+    }
+
+    recordPurchases(snackName) {
+        console.log('beginning to record', snackName);
+        vendrService.recordPurchases(snackName)
+    }
+
+    drawPurchased() {
+        const purchased = AppState.purchased
+        let mysnackContent = ''
+        purchased.forEach(snack => mysnackContent += snack.snackCard)
+        setHTML('mysnacks', mysnackContent)
     }
 }

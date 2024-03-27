@@ -21,6 +21,12 @@ class VendrService {
             console.log('bought', snackName, 'money remaining', AppState.money);
         }
     }
+
+    recordPurchases(snackName) {
+        let purchasedSnack = AppState.snacks.find(snack => snack.name == snackName)
+        AppState.purchased.push(purchasedSnack)
+        console.log('updated purchased', AppState.purchased);
+    }
 }
 
 export const vendrService = new VendrService()
