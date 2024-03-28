@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js";
+import { Snack } from "../models/Vendr.js";
 import { loadState, saveState } from "../utils/Store.js";
 import { setHTML } from "../utils/Writer.js";
 
@@ -35,10 +36,8 @@ class VendrService {
     }
 
     loadPurchased() {
-        const loadedPurchased = JSON.parse(localStorage.getItem('vendr_purchased'))
-        console.log('successfully loaded:', loadedPurchased);
-        AppState.purchased = loadedPurchased
-        console.log('updated', AppState.purchased)
+        const loadedSnacks = loadState('purchased', [Snack])
+        AppState.purchased = loadedSnacks
     }
 }
 
