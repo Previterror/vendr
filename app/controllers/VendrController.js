@@ -5,10 +5,13 @@ import { setHTML } from "../utils/Writer.js";
 export class VendrController {
     constructor() {
         // console.log('VendrController Loaded');
+        this.loadPurchased()
         AppState.on('money', this.drawMoney)
         AppState.on('money', this.toggleButtons)
         AppState.on('purchased', this.drawPurchased)
+        AppState.on('purchased', this.savePurchased)
         this.drawSnacks()
+        this.drawPurchased()
     }
 
     drawMoney() {
@@ -54,9 +57,18 @@ export class VendrController {
     }
 
     drawPurchased() {
+        debugger
         const purchased = AppState.purchased
         let mysnackContent = ''
         purchased.forEach(snack => mysnackContent += snack.snackCard)
         setHTML('mysnacks', mysnackContent)
+    }
+
+    savePurchased() {
+        vendrService.savePurchased()
+    }
+
+    loadPurchased() {
+        vendrService.loadPurchased()
     }
 }

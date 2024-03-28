@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js";
+import { loadState, saveState } from "../utils/Store.js";
 import { setHTML } from "../utils/Writer.js";
 
 class VendrService {
@@ -26,6 +27,18 @@ class VendrService {
         let purchasedSnack = AppState.snacks.find(snack => snack.name == snackName)
         AppState.purchased.push(purchasedSnack)
         console.log('updated purchased', AppState.purchased);
+    }
+
+    savePurchased() {
+        saveState('purchased', AppState.purchased)
+        console.log('saving snacks', AppState.purchased)
+    }
+
+    loadPurchased() {
+        const loadedPurchased = JSON.parse(localStorage.getItem('vendr_purchased'))
+        console.log('successfully loaded:', loadedPurchased);
+        AppState.purchased = loadedPurchased
+        console.log('updated', AppState.purchased)
     }
 }
 
